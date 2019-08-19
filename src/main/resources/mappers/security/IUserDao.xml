@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 用户DAO接口Mapping映射 --> 
+<mapper namespace="com.neusoft.busmis.security.dao.IUserDao">
+  
+  <cache/>
+  <resultMap id="UserResultMap" type="User">
+      <id property="id" column="UserID"/>
+      <result property="name" column="UserName"/>
+      <result property="age" column="UserAge"/>
+      <result property="joinDate" column="JOINDATE"/>
+      <result property="role" column="UserRole"/>
+      
+  </resultMap>
+  
+  <insert id="create"  parameterType="User" flushCache="true">
+   insert into userinfo (USERID,USERPASSWORD,USERNAME,AGE,JOINDATE)
+   values (#{id},#{age},#{name},#{role},#{joinDate})
+  
+  </insert>
+
+  <insert id="createWithPhoto"  parameterType="User" flushCache="true">
+  <!-- 
+   insert into userinfo (USERID,USERPASSWORD,USERNAME,AGE,JOINDATE,PHOTO,PHOTOFILENAME,PHOTOContentType)
+   values (#{id},#{password},#{name},#{age},#{joinDate},#{photo},#{photoFileName},#{photoContentType})
+   -->
+  </insert>
+  
+  <update id="update" flushCache="true">
+   update userinfo set UserAge=#{age},UserName=#{name},UserRole=#{role},JoinDate=#{joinDate} 
+   where USERID=#{id}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from UserInfo where  USERID=#{id}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="UserResultMap">
+   select * from userinfo
+  
+  </select>
+  
+  <select id="selectListByAllWithPage" resultMap="UserResultMap">
+   select * from userinfo
+  </select>
+  
+  <select id="selectById" resultMap="UserResultMap" >
+  select * from userinfo  where USERID=#{id}  
+  </select>
+  
+  <insert id="addRole"  >
+  <!-- 
+   insert into USERROLE values (#{id},#{roleNo})  
+    -->
+  </insert>
+
+  
+</mapper>
